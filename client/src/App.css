@@ -1,38 +1,107 @@
-.App {
+/* General App styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+h1 {
   text-align: center;
+  margin-top: 20px;
+  color: #2c3e50;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  margin-top: 20px;
+  color: #34495e;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Search Section */
+input[type="text"] {
+  width: 300px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+button {
+  padding: 10px 15px;
+  background-color: #3498db;
   color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background-color: #2980b9;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Results and Wishlist Section */
+div {
+  margin: 20px auto;
+  padding: 10px;
+  width: 80%;
+}
+
+.search-results,
+.wishlist {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: white;
+}
+
+.search-results img,
+.wishlist img {
+  max-width: 150px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.search-results div,
+.wishlist div {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.search-results div:last-child,
+.wishlist div:last-child {
+  border-bottom: none;
+}
+
+/* Empty State */
+p {
+  font-size: 16px;
+  font-style: italic;
+  color: #7f8c8d;
+}
+
+button.remove {
+  background-color: #e74c3c;
+}
+
+button.remove:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  input[type="text"] {
+    width: 90%;
   }
-  to {
-    transform: rotate(360deg);
+
+  div {
+    width: 95%;
+  }
+
+  img {
+    max-width: 100%;
   }
 }
