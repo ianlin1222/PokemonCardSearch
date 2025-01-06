@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import './App.css';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState(""); // For the search input
@@ -51,54 +52,82 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <h1>Pokemon Card Price Search</h1>
-
-      {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Search Pokemon Card"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
-
-      {/* Search Results */}
+    <Router>
       <div>
-        <h2>Search Results</h2>
-        {data ? (
-          data.data.map((card, index) => (
-            <div key={index}>
-              <img src={card.images.small} alt={card.name} />
-              <p>{card.name}</p>
-              <p>Set: {card.set.name}</p>
-              <p>Price: ${card.cardmarket.prices.trendPrice}</p>
-              <button onClick={() => addToWishlist(card)}>Add to Wishlist</button>
-            </div>
-          ))
-        ) : (
-          <p>No results!</p>
-        )}
-      </div>
+        <Routes>
+          {/* Homepage */}
+          <Route
+            path="/"
+            element={
+              <div>
+                <header className="navigation">
+                  <Link to="/wishlist">
+                    <button>Go to Wishlist</button>
+                  </Link>
+                </header>
+                <h1>Pokemon Card Price Search</h1>
 
-      {/* Wishlist Section */}
-      <div>
-        <h2>Wishlist</h2>
-        {wishlist.length > 0 ? (
-          wishlist.map((card, index) => (
-            <div key={index}>
-              <img src={card.images.small} alt={card.name} />
-              <p>{card.name}</p>
-              <p>Set: {card.set.name}</p>
-              <p>Price: ${card.cardmarket.prices.trendPrice}</p>
-              <button onClick={() => removeFromWishlist(index)}>Remove</button>
-            </div>
-          ))
-        ) : (
-          <p>Your wishlist is empty.</p>
-        )}
+                {/* Search Input */}
+                <input
+                  type="text"
+                  placeholder="Search Pokemon Card"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button onClick={handleSearch}>Search</button>
+
+                {/* Search Results */}
+                <div className="card-grid">
+                  {data ? (
+                    data.data.map((card, index) => (
+                      <div className="card" key={index}>
+                        <img src={card.images.small} alt={card.name} />
+                        <h3>{card.name}</h3>
+                        <p>Set: {card.set.name}</p>
+                        <p>Price: ${card.cardmarket.prices.trendPrice}</p>
+                        <button onClick={() => addToWishlist(card)}>Add to Wishlist</button>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No results!</p>
+                  )}
+                </div>
+              </div>
+            }
+          />
+
+          {/* Wishlist Page */}
+          <Route
+            path="/wishlist"
+            element={
+              <div>
+                <header className="navigation">
+                  <Link to="/">
+                    <button>Back to Home</button>
+                  </Link>
+                </header>
+                <h1>Your Wishlist</h1>
+                <div className="card-grid">
+                  {wishlist.length > 0 ? (
+                    wishlist.map((card, index) => (
+                      <div className="card" key={index}>
+                        <img src={card.images.small} alt={card.name} />
+                        <h3>{card.name}</h3>
+                        <p>Set: {card.set.name}</p>
+                        <p>Price: ${card.cardmarket.prices.trendPrice}</p>
+                        <button onClick={() => removeFromWishlist(index)}>Remove</button>
+                      </div>
+                    ))
+                  ) : (
+                    <p>Your wishlist is empty.</p>
+                  )}
+                </div>
+              </div>
+            }
+          />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
